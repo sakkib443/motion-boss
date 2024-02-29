@@ -20,12 +20,12 @@ const Header = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                         </label>
                     </div>
-                    <div className="">
+                    {/* <div className="">
                         <Link to='/login' className='border-r-2 border-[#FDC449] mr-2  pr-2'>Login</Link>
-                        <Link to='/register' className=''>Register</Link>
+                        <Link to='/signup' className=''>Register</Link>
 
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

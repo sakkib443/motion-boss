@@ -8,6 +8,8 @@ import Courses from "../Pages/Courses/Courses";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
 import CourseDetails from "../Pages/CourseDetails/CourseDetails";
+import PrivateRoute from "./PrivateRoute";
+import StartCourse from "../Pages/StartCourse/StartCourse";
   
   export const router = createBrowserRouter([
     {
@@ -33,12 +35,14 @@ import CourseDetails from "../Pages/CourseDetails/CourseDetails";
         },
         {
           path:'/course/:id',
-          element: <CourseDetails></CourseDetails>
+          element: <PrivateRoute><CourseDetails></CourseDetails></PrivateRoute>
         },
         {
-          path:'/course/course/:id',
-          element: <CourseDetails></CourseDetails>
+          path:'/মোশন_গ্রাফিক্স',
+          element:<StartCourse></StartCourse>
         }
+       
+     
       ],
     },
   ]);

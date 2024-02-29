@@ -6,9 +6,6 @@ const Hero = () => {
     return (
         <div className="bg-gradient-to-r from-cyan-50 to-blue-50  hover:bg-gradient-to-l overflow-x-hidden   py-8 pb-24">
             <div className="w-10/12 mx-auto grid grid-cols-1  lg:grid-cols-2 items-center">
-                {/* <div className="absolute bottom-8 right-10">
-                    <img className="w-44" src={bg} alt="" />
-                </div> */}
                 <div className='text-center lg:text-start '>
                     <div className="flex justify-center lg:justify-normal items-center">
                         <span><img className="w-12 -mt-4" src={prePrecordedLogo1} alt="" /></span>

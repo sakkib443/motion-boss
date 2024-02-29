@@ -3,7 +3,7 @@ import { BiCategoryAlt } from "react-icons/bi";
 import { IoBookOutline } from "react-icons/io5";
 
 
-const CourseCard = ({ course }) => {
+const CoursePageCard = ({ course }) => {
     const { courseId, courseName, categoryName, totalClasses, trainerImageUrl, trainerName, price, thumbnail_url } = course;
 
 
@@ -35,7 +35,7 @@ const CourseCard = ({ course }) => {
 
                     </div>
 
-                    <Link to={`course/${courseId}`}>      <button className="btn text-white bg-gradient-to-r w-full font-semibold text-[16px] from-cyan-500 to-blue-500">
+                    <Link to={`${courseId}`}>      <button className="btn text-white bg-gradient-to-r w-full font-semibold text-[16px] from-cyan-500 to-blue-500">
                         <samp className='text-xl'><BiCategoryAlt /></samp> Vew Course Details</button></Link>
                 </div>
             </div>
@@ -43,4 +43,4 @@ const CourseCard = ({ course }) => {
     );
 };
 
-export default CourseCard;
+export default CoursePageCard;

@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import CourseCard from "../../Components/Shared/CourseCard/CourseCard";
 import TopTite from "../../Components/CoursesComponents/TopTite";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Loader from "../../Components/Loader/Loader";
+import CoursePageCard from "../../Components/CoursesComponents/CoursePageCard";
 
 
 const Courses = () => {
@@ -14,7 +14,7 @@ const Courses = () => {
     const [ loaing, setLoading] = useState(true)
     useEffect(() => {
         setLoading(true)
-        fetch('course.json')
+        fetch('http://localhost:5000/course')
             .then(res => res.json())
             .then(data => {
                 getCourse(data)
@@ -41,13 +41,13 @@ const Courses = () => {
                     </TabList>
 
                     <TabPanel><div className='grid gap-6 grid-cols-1  md:grid-cols-2 lg:grid-cols-3  w-10/12 mx-auto'>
-                        {courses.map(course => <CourseCard key={course.id} course={course}></CourseCard>)}
+                        {courses.map(course => <CoursePageCard key={course.id} course={course}></CoursePageCard>)}
                     </div> </TabPanel>
                     <TabPanel><div className='grid gap-6 grid-cols-1  md:grid-cols-2 lg:grid-cols-3  w-10/12 mx-auto'>
-                        {onlineCourse.map(course => <CourseCard key={course.id} course={course}></CourseCard>)}
+                        {onlineCourse.map(course => <CoursePageCard key={course.id} course={course}></CoursePageCard>)}
                     </div> </TabPanel>
                     <TabPanel><div className='grid gap-6 grid-cols-1  md:grid-cols-2 lg:grid-cols-3  w-10/12 mx-auto'>
-                        {recordedCourse.map(course => <CourseCard key={course.id} course={course}></CourseCard>)}
+                        {recordedCourse.map(course => <CoursePageCard key={course.id} course={course}></CoursePageCard>)}
                     </div> </TabPanel>
                 
                 </Tabs>

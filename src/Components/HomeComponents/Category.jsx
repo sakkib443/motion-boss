@@ -2,6 +2,7 @@ import { IoBookOutline } from "react-icons/io5";
 import { HiOutlineComputerDesktop } from "react-icons/hi2";
 import { MdLiveTv } from "react-icons/md";
 import img1 from '../../../public/img/wd.png'
+import { Link } from "react-router-dom";
 
 const Category = () => {
     return (
@@ -14,9 +15,9 @@ const Category = () => {
                     <span className="text-6xl mb-2 "><MdLiveTv className='text-purple-900' /></span>
                     <h3 className="text-2xl font-semibold">অনলাইন লাইভ কোর্স</h3>
                     <div>
-                        <button className="btn m-1 flex justify-center bg-gradient-to-r font-semibold text-[16px] ">
+                       <Link to='/course'> <button className="btn m-1 flex justify-center  bg-gradient-to-r font-semibold text-[16px]">
                             <span className="text-xl "><IoBookOutline /></span>
-                            Vew Course</button>
+                            Vew Course</button></Link>
                     </div>
                 </div>
 
@@ -28,9 +29,9 @@ const Category = () => {
                     </div>
                     <h3 className="text-2xl font-semibold">প্রী-রেকর্ডেড কোর্স</h3>
                     <div>
-                        <button className="btn m-1 flex justify-center  bg-gradient-to-r font-semibold text-[16px]">
+                       <Link to='/course'> <button className="btn m-1 flex justify-center  bg-gradient-to-r font-semibold text-[16px]">
                             <span className="text-xl "><IoBookOutline /></span>
-                            Vew Course</button>
+                            Vew Course</button></Link>
                     </div>
                 </div>
                 
