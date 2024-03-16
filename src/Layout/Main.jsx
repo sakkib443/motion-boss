@@ -6,9 +6,9 @@ import Footer from "../Components/Shared/Footer/Footer";
 
 const Main = () => {
     const location = useLocation()
-    const noHeader = location.pathname.includes('signup')
+    const noHeader = location.pathname.includes('signup' && 'profile')
     return (
-        <div className="font-sakib">
+        <div className="font-sakib ">
             {noHeader || <Header></Header>}
             <Navbar></Navbar>
             <Outlet></Outlet>

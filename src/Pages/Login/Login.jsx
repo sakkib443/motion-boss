@@ -1,15 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import { signInWithPopup } from "firebase/auth";
+import GoogleSignin from "../../Components/GoogleSignin/GoogleSignin";
+import { Helmet } from "react-helmet-async";
+
 
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from || { pathname: "/" }; // Default to "/" if state is undefined
 
-    const { signIn,signInWithGoogle } = useAuth(); 
+    const { signIn } = useAuth(); 
     const handleSignin = async event => {
         event.preventDefault();
         const form = event.target;
@@ -23,7 +24,9 @@ const Login = () => {
             Swal.fire({
                 title: "Login successfully",
                 text: "Welcome to Motion Boss",
-                icon: "success"
+                icon: "success",
+                
+                timer: 2000
             });
             navigate(from, { replace: true });
             // Redirect user to the previous location or perform any necessary actions upon successful sign-in
@@ -37,32 +40,13 @@ const Login = () => {
             // Display error message to the user
         }
     };
-    const handleGoogleSignin = ()=>{
-        signInWithGoogle()
-        .then((result) => {
-            // Handle successful Google sign-in
-            console.log("Google sign-in successful:", result.user);
-            Swal.fire({
-                title: "Login successfully",
-                text: "Welcome to Motion Boss",
-                icon: "success"
-            });
-            navigate('/');
-            
-        })
-        .catch((error) => {
-            // Handle errors
-            console.error("Google sign-in error:", error);
-            Swal.fire({
-                title: "Something Wrong",
-                text: "Please Try Again",
-                icon: "error"
-            });
-        });
-    }
+   
 
     return (
         <div>
+            <Helmet>
+                <title>Motion Boss | Login </title>
+            </Helmet>
             <div className="hero pt-12 pb-40 bg-base-200">
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleSignin} className="card-body">
@@ -86,12 +70,7 @@ const Login = () => {
                         </div >
                         <div className="divider">OR</div>
                     </form>
-                    <div className="card-body -mt-16">
-                        <button onClick={handleGoogleSignin} className="btn border text-[16px] w-full mb-2 text-[#1d3153]">
-                            <FaGoogle className=' text-[#EB4235]' />
-                            Log in with Google
-                        </button>
-                    </div>
+                   <GoogleSignin></GoogleSignin>
                     <div className='text-center -mt-6'>
                         <p>New here? Please
                             <Link to='/signup'>

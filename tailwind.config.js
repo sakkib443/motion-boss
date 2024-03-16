@@ -8,7 +8,7 @@ export default {
     extend: {
       fontFamily: {
         sakib: "'Hind Siliguri', sans-serif",
-       
+       lexend: "'Lexend', sans-serif",
       },
     },
   },

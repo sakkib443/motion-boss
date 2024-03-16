@@ -1,12 +1,19 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, } from "react-router-dom";
 import logo from '../../../../public/img/Untitled-1.gif'
 import useAuth from "../../../Hooks/useAuth";
 import { GoChevronDown } from "react-icons/go";
 import Swal from "sweetalert2";
+import useCart from "../../../Hooks/useCart";
+import { FiShoppingCart } from "react-icons/fi";
+import useAdmin from "../../../Hooks/useAdmin";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
+    const [cart] = useCart()
+    const [isAdmin] = useAdmin();
     console.log(user)
+
     const handleLogOut = () => {
         logOut()
             .then(() => {
@@ -18,13 +25,12 @@ const Navbar = () => {
             })
             .catch(error => console.log(error))
     }
-
     const navlinks = <>
         <div className="flex text-[16px]">
             <li><NavLink to='/'>হোম </NavLink></li>
             <li><NavLink to='/course'>কোর্স সমূহ</NavLink></li>
             <li><NavLink to='/about'>আমাদের সম্পর্কে</NavLink></li>
-            <li><NavLink to='/contact'>যোগাযোগ</NavLink></li>
+            {/* <li><NavLink to='/contact'>যোগাযোগ</NavLink></li> */}
 
         </div>
     </>
@@ -60,39 +66,65 @@ const Navbar = () => {
 
 
                         {
-                            user ? <div className=" flex gap-1">
-
-                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-                                    <div className="indicator">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                        <span className="badge badge-sm indicator-item">0</span>
-                                    </div>
+                            user && isAdmin && <div className=" flex gap-1">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle mr-2">
+                                    <Link to='/profile/my-cart'>
+                                        <div className="indicator ">
+                                            <IoMdNotificationsOutline className="text-2xl " />
+                                            <span className="badge badge-sm indicator-item p-2  bg-red-500 text-white">{cart.length}</span>
+                                        </div></Link>
                                 </div>
-
                                 <div className="dropdown dropdown-end">
                                     <div tabIndex={0} role="button" className="btn btn-ghost border-2 border-gray-300  flex flex-col md:flex-row ">
-                                        <img className="w-10 hidden md:block rounded-full" src={user.photoURL} alt="" />
+                                        <img className="w-10 h-10 hidden md:block rounded-full" src={user.photoURL} alt="" />
                                         <h1>{user.displayName}</h1>
                                         <p><GoChevronDown className="text-xl" /></p>
-
                                     </div>
                                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                                         <li>
-                                            <a className="justify-between">
-                                                Profile
-                                                <span className="badge">New</span>
-                                            </a>
+                                            <Link to='/profile/adminHome'>
+                                               Profile 
+                                            </Link>
                                         </li>
-                                        <li><a>Settings</a></li>
+                                        <li><Link>Settings</Link></li>
                                         <li><button onClick={handleLogOut}>Log Out</button></li>
                                     </ul>
                                 </div>
                             </div>
-                                :
-                                <> <div className="text-[17px]">
-                                    <Link to='/login' className='border-r-2 border-[#FDC449] mr-3  pr-3'>Login</Link>
-                                    <Link to='/signup' className=''>Register</Link>
-                                </div></>
+                        }
+
+                        {
+                            user && !isAdmin && <div className=" flex gap-1">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle mr-2">
+                                    <Link to='/profile/my-cart'>
+                                        <div className="indicator ">
+                                            <FiShoppingCart className="text-xl mr-2" />
+                                            <span className="badge badge-sm indicator-item p-2 -mt-[2px] bg-red-500 text-white">{cart.length}</span>
+                                        </div></Link>
+                                </div>
+                                <div className="dropdown dropdown-end">
+                                    <div tabIndex={0} role="button" className="btn btn-ghost border-2 border-gray-300  flex flex-col md:flex-row ">
+                                        <img className="w-10 h-10 hidden md:block rounded-full" src={user?.photoURL} alt="" />
+                                        <h1>{user?.displayName}</h1>
+                                        <p><GoChevronDown className="text-xl" /></p>
+                                    </div>
+                                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li>
+                                            <Link to='/profile/userHome'>
+                                                Profile
+                                            </Link>
+                                        </li>
+                                        <li><Link>Setting</Link></li>
+                                        <li><button onClick={handleLogOut}>Log Out</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        {
+                            !user && !isAdmin && <div className="text-[17px]">
+                                <Link to='/login' className='border-r-2 border-[#FDC449] mr-3  pr-3'>Login</Link>
+                                <Link to='/signup' className=''>Register</Link>
+                            </div>
                         }
                     </div>
                 </div>

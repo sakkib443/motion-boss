@@ -5,10 +5,16 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Loader from "../../Components/Loader/Loader";
 import CoursePageCard from "../../Components/CoursesComponents/CoursePageCard";
+import { Helmet } from "react-helmet-async";
 
 
 const Courses = () => {
-    
+
+    useEffect(()=>{
+        window.scrollTo(0,0);
+      },[])
+
+      
     const [tabIndex, setTabIndex] = useState(0)
     const [courses, getCourse] = useState([])
     const [ loaing, setLoading] = useState(true)
@@ -28,6 +34,9 @@ const Courses = () => {
     if(loaing) return <Loader></Loader>;
     return (
         <div className="py-8 bg-gradient-to-l from-cyan-50 to-blue-100  pb-32 ">
+            <Helmet>
+                <title>Motion Boss | Courses</title>
+            </Helmet>
             <TopTite></TopTite>
       
 

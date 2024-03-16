@@ -1,14 +1,15 @@
 
 import { Link, useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
 import { imageUpload } from '../../Api/utilits';
 import useAuth from '../../Hooks/useAuth';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import GoogleSignin from '../../Components/GoogleSignin/GoogleSignin';
+import { Helmet } from 'react-helmet-async';
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();
-    const { createUser, updateUserProfile,signInWithGoogle } = useAuth()
+    const { createUser, updateUserProfile} = useAuth()
     const navigate = useNavigate()
 
     const handleSubmit = async event => {
@@ -17,16 +18,16 @@ const SignUp = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const image = form.image.files[0];
+        // const image = form.image.files[0];
 
 
         try {
             // 1.upload image
-            const imageData = await imageUpload(image)
+            // const imageData = await imageUpload(image)
             // 2.Signup User
             const result = await createUser(email, password)
             // 3. Save User
-            await updateUserProfile(name, imageData?.data.display_url)
+            await updateUserProfile(name)
             // 4. Save user to database
             const userInfo = {
                 name:name,
@@ -39,8 +40,9 @@ const SignUp = () => {
                     console.log('User added to the database');
                     Swal.fire({
                         title: "Login successfully",
-                        text: "Welcome To Motion Boss",
-                        icon: "success"
+                        text: "Welcome to Motion Boss",
+                        icon: "success",
+                        timer: 2000
                     });
                     navigate('/');
                 } 
@@ -53,14 +55,7 @@ const SignUp = () => {
                     icon: "error"
                 });
             });
-
-
             console.log(result)
-            // Swal.fire({
-            //     title: "Login successfully",
-            //     text: "Well Come To Motion Boss",
-            //     icon: "success"
-            // });
         }
         catch (err) {
             console.log(err)
@@ -72,32 +67,13 @@ const SignUp = () => {
         }
 
     };
-    const handleGoogleSignin = ()=>{
-        signInWithGoogle()
-        .then((result) => {
-            // Handle successful Google sign-in
-            console.log("Google sign-in successful:", result.user);
-            Swal.fire({
-                title: "Login successfully",
-                text: "Welcome to Motion Boss",
-                icon: "success"
-            });
-            navigate('/');
-            
-        })
-        .catch((error) => {
-            // Handle errors
-            console.error("Google sign-in error:", error);
-            Swal.fire({
-                title: "Something Wrong",
-                text: "Please Try Again",
-                icon: "error"
-            });
-        });
-    }
+  
 
     return (
         <div className='flex justify-center items-center min-h-screen py-4 bg-base-100'>
+            <Helmet>
+                <title>Motion Boss | Signup </title>
+            </Helmet>
             <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
                 <div className='mb-8 text-center'>
                     <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
@@ -123,18 +99,18 @@ const SignUp = () => {
                                 data-temp-mail-org='0'
                             />
                         </div>
-                        <div>
+                        {/* <div>
                             <label htmlFor='image' className='block mb-2 text-sm'>
                                 Select Image:
                             </label>
                             <input
-                                required
+                            
                                 type='file'
                                 id='image'
                                 name='image'
                                 accept='image/*'
                             />
-                        </div>
+                        </div> */}
                         <div>
                             <label htmlFor='email' className='block mb-2 text-sm'>
                                 Email address
@@ -183,10 +159,7 @@ const SignUp = () => {
                     </p>
                     <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
                 </div>
-                <div onClick={handleGoogleSignin} className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
-                    <FcGoogle size={32} />
-                    <p>Continue with Google</p>
-                </div>
+               <GoogleSignin></GoogleSignin>
                 <p className='px-6 text-sm text-center text-gray-400'>
                     Already have an account?{' '}
                     <Link

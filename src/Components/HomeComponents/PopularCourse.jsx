@@ -6,7 +6,7 @@ import CourseCard from "../Shared/CourseCard/CourseCard";
 const PopularCourse = () => {
     const [courses , getCourse] = useState([])
     useEffect(()=>{
-        fetch('course.json')
+        fetch('http://localhost:5000/course')
         .then(res=> res.json())
         .then(data=> getCourse(data))
         
